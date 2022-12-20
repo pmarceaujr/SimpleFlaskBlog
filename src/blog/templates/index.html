@@ -1,9 +1,14 @@
-{% extends "base1.html" %}
+{% extends "blog_base.html" %}
 
+{% block sub_content %}
+  {% if blogs %}
+    {% for blog in blogs %}
+      <h3> <a href="/blogs/{{ blog['blog_id'] }}">{{blog['title']}} </a> </h3>
+      <h5>Written by {{blog['author']}}</h5>
 
-    {% block title %}
-        Index Title
-    {% endblock title %}
-    {%  block body %}
-        <h1>This is the new index page</h1>
-    {%  endblock body %}
+      <hr>
+    {% endfor %}
+  {% else %}
+    <h3>No blogs have been written yet</h3>
+  {% endif %}
+{% endblock %}

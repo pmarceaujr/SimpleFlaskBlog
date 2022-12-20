@@ -1,10 +1,29 @@
 {% extends "blog_base.html" %}
 
+{% block sub_content %}
+<div class="text-center">
+  <h1> Delete Blog </h1>
+</div>
+<form class="form-horizontal" method="POST">
+  <div class="form-group">
+    <label class="control-label col-sm-2">Title</label>
+    <div class="col-sm-5">
+      <input type="text" name="title" style="border:solid 0px;" value="{{ blog_data['title'] }}" readonly> </input>
+    </div>
+  </div>
 
-    {% block title %}
-        Delete Blog
-    {% endblock title %}
-    {%  block body %}
-        <h1>This is the new Delete Blog page</h1>
-    {%  endblock body %}
+    <div class="form-group">
+      <label class="control-label col-sm-2">Body</label>
+      <div class="col-sm-5">
+        <textarea  name="blog_body" cols="100" rows="15" style="border:solid 0px; resize:none" readonly>{{ blog_data['blog_body'] }} </textarea>
+      </div>
+    </div>
 
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="Submit" >Confirm </button>
+      </div>
+    </div>
+
+</form>
+{% endblock %}

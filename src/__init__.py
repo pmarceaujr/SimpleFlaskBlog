@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_ckeditor import CKEditor
 from flask_bootstrap import *
 from flask_login import *
 from flask_bcrypt import *
@@ -11,6 +12,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'blog_app.login'
 login_manager.session_protection = 'strong'
 bcrypt = Bcrypt()
+ckeditor = CKEditor()
 
 
 def create_app(config_type):
@@ -25,6 +27,7 @@ def create_app(config_type):
     bootstrap.init_app(blog_fapp)
     login_manager.init_app(blog_fapp)
     bcrypt.init_app(blog_fapp)
+    ckeditor.init_app(blog_fapp)
 
     # register each blueprint
     from src.blog import blog_app

@@ -8,17 +8,18 @@ from src import login_manager
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    body = db.Column(db.String(9999), nullable=False)
+    blog_body = db.Column(db.String(9999), nullable=False)
+    create_date = db.Column(db.DateTime, default=dt.utcnow())
     # author_id = db.Column(db.String(50), nullable=False, index=True)
 
     # ESTABLISH A RELATIONSHIP BETWEEN PUBLICATION AND BOOK TABLES
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title):
-        self.title = title
-
-    def __repr__(self):
-        return f'The title is is {self.title}'
+    # def __init__(self, title):
+    #     self.title = title
+    #
+    # def __repr__(self):
+    #     return f'The title is is {self.title}'
 
 
 # BOOK TABLE

@@ -8,14 +8,14 @@
   <div class="form-group">
     <label class="control-label col-sm-2">Title</label>
     <div class="col-sm-5">
-      <input type="text" name="title" value="{{ blog_form['title'] }}"> </input>
+      <input type="text" name="title" value="{{ blog_data['title'] }}"> </input>
     </div>
   </div>
 
     <div class="form-group">
       <label class="control-label col-sm-2">Body</label>
       <div class="col-sm-5">
-        <textarea class="ckeditor" name="body">{{ blog_form['body'] }}</textarea>
+        <textarea class="ckeditor" cols="100" rows="15" name="blog_body">{{ blog_data['blog_body'] }}</textarea>
       </div>
     </div>
 

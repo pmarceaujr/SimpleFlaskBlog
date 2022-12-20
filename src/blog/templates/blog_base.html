@@ -1,0 +1,17 @@
+{% extends "bootstrap/base.html" %}
+
+
+{% block title %}
+    CRUD Blog
+{% endblock title %}
+
+
+    {% block navbar %}
+        {% include "_navbar.html" %}
+    {% endblock navbar %}
+
+{% block content %}
+    {% include "_messages.html" %}
+    {%  block sub_content %}
+    {% endblock sub_content %}
+{% endblock content %}

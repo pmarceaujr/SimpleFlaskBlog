@@ -1,5 +1,7 @@
-from src import db
+from src import db, bcrypt
+from flask_login import UserMixin
 from datetime import datetime as dt
+from src import login_manager
 
 
 # PUBLICATION TABLE
@@ -20,21 +22,32 @@ class Blog(db.Model):
 
 
 # BOOK TABLE
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False, index=True)
     last_name = db.Column(db.String(50), nullable=False, index=True)
-    username = db.Column(db.String(50), unique=True, nullable=False, index=True)
-    email = db.Column(db.String(50), nullable=False, index=True)
-    password = db.Column(db.String(50), nullable=False)
+    user_name = db.Column(db.String(50), unique=True, nullable=False, index=True)
+    email = db.Column(db.String(50), unique=True, nullable=False, index=True)
+    user_password = db.Column(db.String(200), nullable=False)
     create_date = db.Column(db.DateTime, default=dt.utcnow())
 
-    def __init__(self, first_name, last_name, username, email, create_date):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.username = username
-        self.email = email
-        self.create_date = create_date
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.user_password, password)
 
-    def __repr__(self):
-        return f'User: {self.first_name} {self.last_name} {self.username} {self.email} {self.create_date}'
+    # class methods belong to a class but are not associated with any class instance
+    @classmethod
+    def create_user(cls, fname, lname, user_name, email, password):
+        user = cls(first_name=fname,
+                   last_name=lname,
+                   user_name=user_name,
+                   email=email,
+                   user_password=bcrypt.generate_password_hash(password).decode('utf-8'))
+
+        db.session.add(user)
+        db.session.commit()
+        return user
+
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
